@@ -104,9 +104,63 @@ add('檢視你手機目前的顯示設定，字體大小與螢幕亮度是？',[
 add('你目前每天坐著辦公的那張椅子，海綿坐墊的彈性現況是？',['🪑 坐墊已經嚴重扁塌硬化，坐上去能明顯感受到下方堅硬底板','🛋️ 稍微有點變形，但還能坐','💺 支撐力良好，能有效分散坐骨結節壓力的人體工學椅'],'坐墊失去支撐可能增加坐骨與臀部局部壓力，引發久坐不適或下背痠痛。','在硬化椅子上加裝一塊具足夠支撐力的高密度減壓坐墊，改善壓力分佈。');
 add('每天早晨與睡前刷牙時，你當下的專注狀態通常是？',['🪥 一邊走動一邊滑手機看新聞，牙刷隨便刷幾十秒就吐掉','⏱️ 稍微刷一下，時間大概在 1 分鐘左右','🪞 專注看著鏡子落實「貝氏刷牙法」，每顆牙齒表面刷滿 2 分鐘'],'分心快刷常無法有效清潔牙齦溝與後排牙齒死角，牙菌斑長期殘留是引發牙齦炎與牙周病的重要因素之一。','今晚刷牙時暫時放下手機，對著鏡子依照貝氏刷牙步驟，以輕柔力道刷滿 2 分鐘。');
 
+// 第四選項只補在原本三個答案無法涵蓋常見情況的題目。
+// notApplicable 代表不納入結果；其餘第四選項仍依 riskScore 評估。
+const fourthOptions={
+'003':{text:'🏠 我平常很少在外面買便當或吃小吃',notApplicable:true},
+'006':{text:'🚫 我平常不太吃點心',riskScore:0},
+'011':{text:'🚫 我平常幾乎不吃水果',riskScore:2,trigger:true,healthAlert:'長期水果攝取不足，可能較難從日常飲食獲得足量的維生素、礦物質與膳食纖維。',mission:'今天安排一份約一個拳頭大小的新鮮水果；若有特殊飲食限制，請依醫療專業人員建議調整。'},
+'012':{text:'🏠 我平常很少買便當或吃自助餐',notApplicable:true},
+'013':{text:'🚫 我平常不使用沾醬',riskScore:0},
+'015':{text:'🚰 我口渴時不喝果汁，通常喝水或無糖飲品',riskScore:0},
+'019':{text:'🍽️ 我平常不負責下廚或很少在家做菜',notApplicable:true},
+'024':{text:'🛋️ 我目前幾乎沒有規律運動',riskScore:2,trigger:true},
+'028':{text:'🚶 我目前沒有從事運動或劇烈體能活動',notApplicable:true},
+'029':{text:'👐 我外出時通常不需要攜帶包包或重物',notApplicable:true},
+'031':{text:'🚫 我平常不需要搬動整箱重物',notApplicable:true},
+'035':{text:'🚶 我目前沒有快走或運動鍛鍊的習慣',notApplicable:true},
+'036':{text:'😊 我目前沒有膝蓋喀喀響或疼痛的情況',notApplicable:true},
+'037':{text:'👐 我平常不需要長時間在電腦前打字',notApplicable:true},
+'039':{text:'🚫 我平常不搬重物，也沒有進行重訓',notApplicable:true},
+'040':{text:'👞 我平常沒有穿運動鞋或布鞋',notApplicable:true},
+'044':{text:'❓ 我獨自睡眠，沒有人能觀察是否打呼',notApplicable:true},
+'046':{text:'📄 我的健檢沒有出現脂肪肝',notApplicable:true},
+'047':{text:'📄 我沒有遇過血糖偏高且被建議用藥的情況',notApplicable:true},
+'048':{text:'✅ 目前沒有牙齦流血，且有定期接受牙科檢查',riskScore:0},
+'051':{text:'📋 我目前不符合成人預防保健資格',notApplicable:true},
+'053':{text:'😊 我沒有經常性頭痛',notApplicable:true},
+'057':{text:'📄 我沒有尿酸偏高或痛風病史',notApplicable:true},
+'058':{text:'🏠 空氣品質不良時，我通常避免外出',riskScore:0},
+'059':{text:'🏠 我通常不在艷陽正午時段外出',notApplicable:true},
+'065':{text:'🌙 我平日沒有熬夜趕工的情況',notApplicable:true},
+'068':{text:'📅 我的工作或生活沒有固定的週一作息',notApplicable:true},
+'069':{text:'😴 我很少遇到躺在床上睡不著的情況',notApplicable:true},
+'072':{text:'🚶 我目前沒有運動習慣',notApplicable:true},
+'076':{text:'😊 我近期沒有感到孤單或沮喪',notApplicable:true},
+'077':{text:'🏠 我目前獨居，睡前沒有與家人或伴侶相處',notApplicable:true},
+'078':{text:'😴 我沒有持續超過一個月的失眠、早醒或白天焦慮',notApplicable:true},
+'079':{text:'🌿 我目前沒有一整天高強度工作的情況',notApplicable:true},
+'080':{text:'🤝 我近期沒有遇到這類不合理要求',notApplicable:true},
+'081':{text:'🎧 我平常不使用耳機',notApplicable:true},
+'082':{text:'👐 我平常不會長時間使用電腦或平板',notApplicable:true},
+'083':{text:'📵 我平常不在客廳或臥室使用平板',notApplicable:true},
+'084':{text:'👐 我平常不使用滑鼠或鍵盤',notApplicable:true},
+'085':{text:'💻 我平常不使用筆記型電腦',notApplicable:true},
+'086':{text:'👓 我平常沒有配戴隱形眼鏡',notApplicable:true},
+'087':{text:'🍃 我很少待在開冷氣的密閉空間',notApplicable:true},
+'088':{text:'🥤 我平常不使用有密封圈或吸管的保溫杯',notApplicable:true},
+'089':{text:'📵 我平常不會躺在沙發上滑手機',notApplicable:true},
+'090':{text:'🏠 我平常不在辦公室吃便當',notApplicable:true},
+'091':{text:'🪑 我平常不使用高腳椅或辦公椅',notApplicable:true},
+'093':{text:'👐 我目前沒有使用辦公桌與鍵盤滑鼠',notApplicable:true},
+'094':{text:'🚶 我平常不搭乘捷運或公車',notApplicable:true},
+'096':{text:'📱 我目前不使用大尺寸螢幕手機',notApplicable:true},
+'097':{text:'😊 我沒有遇過強烈乾癢或異物感',notApplicable:true},
+'099':{text:'🪑 我平常不使用有海綿坐墊的辦公椅',notApplicable:true}
+};
 const reviewIds=new Set(['051','052','055']);
 const tags=[['drink','sugar'],['eating_out','sodium'],['eating_out','vegetables'],['water'],['late_dinner'],['snack'],['protein'],['processed_meat'],['fast_eating'],['sodium'],['fruit'],['fried'],['sauce'],['breakfast'],['juice'],['late_night'],['calcium'],['dessert'],['oil'],['caffeine'],['sitting'],['walking'],['weekend'],['strength'],['balance'],['strength'],['posture'],['warmup'],['bag'],['stairs'],['lifting'],['sitting'],['grip'],['posture'],['exercise'],['knee'],['shoulder'],['balance'],['breathing'],['shoes'],['blood_pressure'],['medication'],['bowel'],['sleep'],['herbal'],['liver'],['blood_sugar'],['dental'],['urination'],['reflux'],['screening'],['screening'],['headache'],['skin'],['smoking'],['alcohol'],['uric_acid'],['air'],['sun'],['waist'],['sleep','phone'],['sleep'],['caffeine'],['sleep','bed'],['sleep'],['stress','food'],['emotion'],['sleep'],['alcohol','sleep'],['sleep'],['stress'],['exercise','sleep'],['sunlight'],['hobby'],['sleep','stress'],['social'],['conflict'],['insomnia'],['microbreak'],['boundaries'],['headphones'],['eye','screen'],['screen'],['mouse'],['laptop'],['contact_lens'],['air'],['cleaning'],['phone','posture'],['mindful_eating'],['chair'],['phone_anxiety'],['desk'],['motion_sickness'],['phone_cleaning'],['thumb'],['eye'],['font_size'],['chair'],['brushing']];
 const contexts={nutrition_metabolism:['diet'],activity_muscle:['activity'],chronic_prevention:['chronic'],sleep_stress:['sleep'],digital_ergonomics:['digital']};
-const questions=raw.map((r,i)=>{const n=i+1,id=String(n).padStart(3,'0');const category=n<=20?'nutrition_metabolism':n<=40?'activity_muscle':n<=60?'chronic_prevention':n<=80?'sleep_stress':'digital_ergonomics';return{id,category,categoryName:categories[category].name,question:r[0],options:r[1].map((text,j)=>({id:'ABC'[j],text,riskScore:2-j,trigger:j===0})),healthAlert:r[2],mission:r[3],tags:tags[i]||[],contexts:contexts[category],ageGroups:[],imageKey:imageKeys[i]||'',needsAnnualReview:reviewIds.has(id),reviewedAt:'2026-09'}});
+const questions=raw.map((r,i)=>{const n=i+1,id=String(n).padStart(3,'0');const category=n<=20?'nutrition_metabolism':n<=40?'activity_muscle':n<=60?'chronic_prevention':n<=80?'sleep_stress':'digital_ergonomics';const options=r[1].map((text,j)=>({id:'ABC'[j],text,riskScore:2-j,trigger:j===0}));if(fourthOptions[id])options.push({id:'D',riskScore:null,trigger:false,...fourthOptions[id]});return{id,category,categoryName:categories[category].name,question:r[0],options,healthAlert:r[2],mission:r[3],tags:tags[i]||[],contexts:contexts[category],ageGroups:[],imageKey:imageKeys[i]||'',needsAnnualReview:reviewIds.has(id),reviewedAt:'2026-09'}});
 window.HEALTH_DATA={sharedDisclaimer,categories,questions};
 })();
